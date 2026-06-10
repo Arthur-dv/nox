@@ -59,7 +59,10 @@ export default function HomeScreen({ navigation }: Props) {
 
   return (
     <SafeAreaView style={styles.safe}>
+
+      {/* Conteúdo rolável — sem o botão */}
       <ScrollView
+        style={styles.scroll}
         contentContainerStyle={styles.container}
         showsVerticalScrollIndicator={false}
         keyboardShouldPersistTaps="handled"
@@ -149,8 +152,10 @@ export default function HomeScreen({ navigation }: Props) {
             </TouchableOpacity>
           ))}
         </View>
+      </ScrollView>
 
-        {/* Botão */}
+      {/* Botão fixo no rodapé */}
+      <View style={styles.footer}>
         <TouchableOpacity
           style={[styles.button, !canProceed && styles.buttonDisabled]}
           onPress={handleProceed}
@@ -161,8 +166,7 @@ export default function HomeScreen({ navigation }: Props) {
         >
           <Text style={styles.buttonText}>Explorar</Text>
         </TouchableOpacity>
-
-      </ScrollView>
+      </View>
 
       {/* Modal de estados */}
       <Modal
@@ -206,13 +210,21 @@ export default function HomeScreen({ navigation }: Props) {
 
 const styles = StyleSheet.create({
   safe: { flex: 1, backgroundColor: colors.background },
-  container: { padding: spacing.lg, paddingBottom: spacing.xl },
 
-  header: { alignItems: 'center', marginBottom: spacing.xl, marginTop: spacing.lg },
-  logo: { fontSize: 42, fontFamily: fonts.bold, color: colors.primary, letterSpacing: 8 },
+  scroll: { flex: 1 },
+  container: { paddingHorizontal: spacing.lg, paddingTop: spacing.sm, paddingBottom: spacing.sm },
+
+  header: { alignItems: 'center', marginBottom: 14, marginTop: spacing.xs },
+  logo: { fontSize: 38, fontFamily: fonts.bold, color: colors.primary, letterSpacing: 8 },
   subtitle: { fontSize: fontSize.sm, fontFamily: fonts.regular, color: colors.textMuted, marginTop: spacing.xs },
 
-  label: { fontSize: fontSize.sm, fontFamily: fonts.regular, color: colors.textMuted, marginBottom: spacing.sm, marginTop: spacing.md },
+  label: {
+    fontSize: fontSize.sm,
+    fontFamily: fonts.regular,
+    color: colors.textMuted,
+    marginBottom: 6,
+    marginTop: 10,
+  },
   labelDisabled: { opacity: 0.4 },
 
   selector: {
@@ -221,7 +233,7 @@ const styles = StyleSheet.create({
     borderWidth: 1,
     borderColor: colors.border,
     paddingHorizontal: spacing.md,
-    paddingVertical: 13,
+    paddingVertical: 11,
     flexDirection: 'row',
     justifyContent: 'space-between',
     alignItems: 'center',
@@ -245,7 +257,7 @@ const styles = StyleSheet.create({
     fontSize: fontSize.md,
     fontFamily: fonts.regular,
     color: colors.text,
-    paddingVertical: 12,
+    paddingVertical: 11,
   },
 
   suggestions: {
@@ -258,7 +270,7 @@ const styles = StyleSheet.create({
   },
   suggestionItem: {
     paddingHorizontal: spacing.md,
-    paddingVertical: 13,
+    paddingVertical: 11,
     minHeight: 44,
     justifyContent: 'center',
     borderBottomWidth: 1,
@@ -270,27 +282,33 @@ const styles = StyleSheet.create({
   grid: { flexDirection: 'row', flexWrap: 'wrap', gap: spacing.sm, marginTop: spacing.xs },
   categoryCard: {
     width: '47%',
-    aspectRatio: 1.8,
+    aspectRatio: 2.5,
     backgroundColor: colors.surface,
     borderRadius: radius.md,
     borderWidth: 1,
     borderColor: colors.border,
     alignItems: 'center',
     justifyContent: 'center',
-    gap: spacing.xs,
+    flexDirection: 'row',
+    gap: spacing.sm,
     minHeight: 44,
   },
   categoryCardActive: { borderColor: colors.primary, backgroundColor: '#1f1a12' },
-  categoryEmoji: { fontSize: 26 },
-  categoryLabel: { fontSize: fontSize.xs, fontFamily: fonts.regular, color: colors.textMuted, textAlign: 'center' },
+  categoryEmoji: { fontSize: 20 },
+  categoryLabel: { fontSize: fontSize.xs, fontFamily: fonts.regular, color: colors.textMuted },
   categoryLabelActive: { color: colors.primary },
 
+  footer: {
+    paddingHorizontal: spacing.lg,
+    paddingTop: spacing.sm,
+    paddingBottom: spacing.sm,
+    backgroundColor: colors.background,
+  },
   button: {
     backgroundColor: colors.primary,
     borderRadius: radius.lg,
     paddingVertical: 14,
     alignItems: 'center',
-    marginTop: spacing.xl,
     minHeight: 48,
     justifyContent: 'center',
   },
@@ -317,6 +335,12 @@ const styles = StyleSheet.create({
   },
   modalItemText: { fontSize: fontSize.md, fontFamily: fonts.regular, color: colors.text },
   modalItemUF: { fontSize: fontSize.md, fontFamily: fonts.regular, color: colors.textMuted },
-  modalClose: { marginTop: spacing.md, alignItems: 'center', paddingVertical: spacing.sm, minHeight: 44, justifyContent: 'center' },
+  modalClose: {
+    marginTop: spacing.md,
+    alignItems: 'center',
+    paddingVertical: spacing.sm,
+    minHeight: 44,
+    justifyContent: 'center',
+  },
   modalCloseText: { fontSize: fontSize.md, fontFamily: fonts.regular, color: colors.primary },
 });
